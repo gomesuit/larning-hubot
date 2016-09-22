@@ -21,6 +21,7 @@ bin/hubot -a slack
 
 # デーモンとして起動したい場合
 npm install -g forever
+npm install -g coffee-script
 forever --minUptime 3000 --spinSleepTime 3000 start -c coffee node_modules/.bin/hubot -a slack
 forever list
 
