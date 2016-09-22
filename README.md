@@ -6,6 +6,7 @@
 export HUBOT_SLACK_TOKEN=XXXXXXXX-XXXXXXX
 export HUBOT_LOG_LEVEL=debug
 export HUBOT_JENKINS_URL="http://127.0.0.1:8080/"
+# passwordの部分はtokenでもOK
 export HUBOT_JENKINS_AUTH="username:password"
 ```
 
