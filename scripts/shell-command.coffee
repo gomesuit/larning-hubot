@@ -36,8 +36,6 @@ module.exports = (robot) ->
       msg.send stdout
       msg.send stderr
 
-parser  = require 'xml2json'
-
 module.exports = (robot) ->
  robot.respond /jenkins2 desc (.*)$/i, (msg) ->
     url = process.env.HUBOT_JENKINS_URL
@@ -49,6 +47,7 @@ module.exports = (robot) ->
 
     @exec command, (error, stdout, stderr) ->
       #msg.send error
+      parser  = require 'xml2json'
       json = parser.toJson stdout
       content = JSON.parse(json)
       msg.send content.project.description
