@@ -52,3 +52,14 @@ module.exports = (robot) ->
         content = JSON.parse(json)
         msg.send content.project.description
 
+ robot.respond /jenkins2 list/, (msg) ->
+    url = process.env.HUBOT_JENKINS_URL
+    jenkinscli = process.env.HUBOT_JENKINS_CLI_PATH
+    identity = process.env.HUBOT_JENKINS_IDENTITY_PATH
+    command = "java -jar #{jenkinscli} -s #{url} -i #{identity} list-jobs"
+    child_process.exec command, (error, stdout, stderr) ->
+      if error
+        msg.send stderr
+      else
+        msg.send stdout
+
