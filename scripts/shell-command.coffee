@@ -11,16 +11,18 @@
 #  hubot shell <command>
 #
 
+child_process = require('child_process')
+
 module.exports = (robot) ->
  robot.respond /shell (.*)$/i, (msg) ->
     command = msg.match[1]
-    @exec = require('child_process').exec
     msg.send "This is the command #{command}."
 
-    @exec command, (error, stdout, stderr) ->
-      msg.send error
-      msg.send stdout
-      msg.send stderr
+    child_process.exec command, (error, stdout, stderr) ->
+      if error
+        msg.send stderr
+      else
+        msg.send stdout
 
  robot.respond /jenkins2 build (.*)$/i, (msg) ->
     url = process.env.HUBOT_JENKINS_URL
@@ -28,12 +30,11 @@ module.exports = (robot) ->
     identity = process.env.HUBOT_JENKINS_IDENTITY_PATH
     job = msg.match[1]
     command = "java -jar #{jenkinscli} -s #{url} -i #{identity} build #{job} -s -v"
-    @exec = require('child_process').exec
-
-    @exec command, (error, stdout, stderr) ->
-      msg.send error
-      msg.send stdout
-      msg.send stderr
+    child_process.exec command, (error, stdout, stderr) ->
+      if error
+        msg.send stderr
+      else
+        msg.send stdout
 
  robot.respond /jenkins2 desc (.*)$/i, (msg) ->
     url = process.env.HUBOT_JENKINS_URL
@@ -41,13 +42,13 @@ module.exports = (robot) ->
     identity = process.env.HUBOT_JENKINS_IDENTITY_PATH
     job = msg.match[1]
     command = "java -jar #{jenkinscli} -s #{url} -i #{identity} get-job #{job}"
-    @exec = require('child_process').exec
 
-    @exec command, (error, stdout, stderr) ->
-      #msg.send error
-      parser  = require 'xml2json'
-      json = parser.toJson stdout
-      content = JSON.parse(json)
-      msg.send content.project.description
-      msg.send stderr
+    child_process.exec command, (error, stdout, stderr) ->
+      if error
+        msg.send stderr
+      else
+        parser  = require 'xml2json'
+        json = parser.toJson stdout
+        content = JSON.parse(json)
+        msg.send content.project.description
 
