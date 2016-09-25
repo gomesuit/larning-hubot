@@ -22,7 +22,6 @@ module.exports = (robot) ->
       msg.send stdout
       msg.send stderr
 
-module.exports = (robot) ->
  robot.respond /jenkins2 build (.*)$/i, (msg) ->
     url = process.env.HUBOT_JENKINS_URL
     jenkinscli = process.env.HUBOT_JENKINS_CLI_PATH
@@ -36,7 +35,6 @@ module.exports = (robot) ->
       msg.send stdout
       msg.send stderr
 
-module.exports = (robot) ->
  robot.respond /jenkins2 desc (.*)$/i, (msg) ->
     url = process.env.HUBOT_JENKINS_URL
     jenkinscli = process.env.HUBOT_JENKINS_CLI_PATH
