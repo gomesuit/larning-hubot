@@ -8,7 +8,9 @@
 #  Change the script if you want to exeute a different command
 #
 # Commands:
-#  hubot shell <command>
+#  hubot exec <command>
+#  hubot spawn <command>
+#  hubot args <arg1> <arg2>
 #
 
 child_process = require('child_process')
@@ -34,3 +36,8 @@ module.exports = (robot) ->
       msg.send 'stdout: ' + data
     result.stderr.on 'data', (data) ->
       msg.send 'stderr: ' + data
+
+ robot.respond /args (.*) (.*)$/i, (msg) ->
+    arg1 = msg.match[1]
+    arg2 = msg.match[2]
+    msg.send "#{arg1} #{arg2}"

@@ -11,14 +11,16 @@ export HUBOT_JENKINS_AUTH="username:password"
 ```
 
 ```
+yarn install
+
 # コンソールで起動
-bin/hubot
+yarn exec hubot
 
 # botの名前を変更したい
-bin/hubot -n <BOT_NAME>
+yarn exec hubot -n <BOT_NAME>
 
 # slack連携で起動
-bin/hubot -a slack
+yarn exec hubot -a slack
 
 # デーモンとして起動したい場合
 npm install -g forever
